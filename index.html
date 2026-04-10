@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ching Yu Dai — Architecture & Art</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text: #1a1a18;
+      --text-muted: #6b6b66;
+      --text-faint: #a8a8a2;
+      --bg: #f8f6f1;
+      --bg-card: #ffffff;
+      --border: rgba(26,26,24,0.1);
+      --border-mid: rgba(26,26,24,0.2);
+      --accent: #b85c1a;
+      --radius: 10px;
+      --serif: 'EB Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(248,246,241,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* SECTIONS */
+    section { padding: 6rem 3rem; border-bottom: 0.5px solid var(--border); }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      min-height: 420px;
+    }
+    .hero-text .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      font-weight: 400;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: 54px;
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-text .sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 400px;
+      margin-top: 1.25rem;
+      font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 12px; margin-top: 2.25rem; }
+    .btn-primary {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      padding: 11px 24px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.8; }
+    .btn-secondary {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      padding: 11px 24px;
+      background: transparent;
+      color: var(--text);
+      border: 0.5px solid var(--border-mid);
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(26,26,24,0.05); }
+    .hero-photo {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 0.5px solid var(--border);
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-photo {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 0.5px solid var(--border);
+    }
+    .about-photo img { width: 100%; display: block; object-fit: cover; }
+    .about-text h2 {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.75rem; }
+    .tag {
+      font-size: 11px;
+      padding: 5px 13px;
+      border-radius: 999px;
+      border: 0.5px solid var(--border-mid);
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* PORTFOLIO */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    .portfolio-card {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .portfolio-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-2px);
+    }
+    .portfolio-thumb {
+      aspect-ratio: 4/3;
+      background: #ede9e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 1.5rem;
+    }
+    .portfolio-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .thumb-label {
+      font-family: var(--serif);
+      font-size: 13px;
+      color: var(--text-faint);
+      text-align: center;
+      font-style: italic;
+    }
+    .portfolio-info { padding: 1rem 1.25rem 1.25rem; }
+    .portfolio-info h3 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+    .portfolio-info .medium { font-size: 12px; color: var(--text-muted); font-weight: 300; }
+    .portfolio-meta { font-size: 11px; color: var(--text-faint); margin-top: 5px; letter-spacing: 0.02em; }
+
+    /* RESUME */
+    .resume-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; }
+    .resume-section { margin-bottom: 3rem; }
+    .resume-section:last-child { margin-bottom: 0; }
+    .resume-section h3 {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 1.5rem;
+    }
+    .resume-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .resume-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .resume-item h4 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+    .resume-item .org { font-size: 13px; color: var(--text-muted); font-weight: 300; }
+    .resume-item .year { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+
+    /* BLOG */
+    .blog-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+      cursor: pointer;
+    }
+    .blog-item:first-child { border-top: 0.5px solid var(--border); }
+    .blog-title {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .blog-excerpt { font-size: 13px; color: var(--text-muted); font-weight: 300; }
+    .blog-date { font-size: 12px; color: var(--text-faint); white-space: nowrap; }
+
+    /* CONTACT */
+    .contact-inner { max-width: 560px; }
+    .contact-inner h2 {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .contact-inner .sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      padding: 1rem 1.25rem;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover { border-color: var(--border-mid); background: #f2efe8; }
+    .contact-link-label { font-size: 11px; color: var(--text-faint); margin-bottom: 2px; letter-spacing: 0.04em; }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p { font-size: 12px; color: var(--text-faint); font-weight: 300; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero, .about-grid, .resume-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-text h1 { font-size: 38px; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 500px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .hero-text h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Ching Yu Dai</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section>
+  <div class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Architecture & Fine Art</p>
+      <h1>Building worlds<br>from the <em>inside out.</em></h1>
+      <p class="sub">I work across architectural modeling, painting, and drawing — drawn to the interplay of emotion, structure, and perspective.</p>
+      <div class="hero-btns">
+        <a href="#portfolio" class="btn-primary">View my work</a>
+        <a href="#contact" class="btn-secondary">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <!-- Replace src with your actual headshot path -->
+      <img src="headshot.jpg" alt="Ching Yu Dai" />
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">About me</p>
+  <div class="about-grid">
+    <div class="about-photo">
+      <img src="headshot.jpg" alt="Emma" />
+    </div>
+    <div class="about-text">
+      <h2>Hi, I'm Emma (Ching Yu Dai).</h2>
+      <p>I'm an architecture student and artist with a practice rooted in concept-driven making. My work begins with an idea — a feeling, a film, a historical text — and finds its form through model-building, painting, and drawing.</p>
+      <p>I'm drawn to the spaces between things: the tension between structure and fragility, the way scale shifts perception, the emotional weight that materials can carry. Whether I'm constructing a 50-inch architectural model or working in oil on canvas, the question is always the same — what does this space feel like from the inside?</p>
+      <div class="tags">
+        <span class="tag">Architecture</span>
+        <span class="tag">Model-making</span>
+        <span class="tag">Oil painting</span>
+        <span class="tag">Drawing & illustration</span>
+        <span class="tag">Art installations</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <p class="section-label">Portfolio</p>
+  <div class="portfolio-grid">
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <!-- Replace with: <img src="images/emotions.jpg" alt="Emotions" /> -->
+        <span class="thumb-label">Emotions — add project photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Emotions</h3>
+        <p class="medium">Clay, wooden sticks, PVC, steel wire</p>
+        <p class="portfolio-meta">2022 · Individual work</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <span class="thumb-label">Chinese Era — add project photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Chinese Era</h3>
+        <p class="medium">Wooden strips, PVC boards</p>
+        <p class="portfolio-meta">2022 · L16×W17×H14 in</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <span class="thumb-label">Life Orbit — add project photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Life Orbit</h3>
+        <p class="medium">Wooden strips, PVC boards</p>
+        <p class="portfolio-meta">2022 · L16×W17.5×H14 in</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <span class="thumb-label">Block — add project photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Block</h3>
+        <p class="medium">Dutch paper, wooden strips</p>
+        <p class="portfolio-meta">2022 · L40×W17×H24 in</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <span class="thumb-label">Tokyo-3 — add project photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Tokyo-3: Transition Space</h3>
+        <p class="medium">Wooden strips, PVC boards</p>
+        <p class="portfolio-meta">2021 · L40×W40×H50 in</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <span class="thumb-label">Art Installations — add project photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Art Installations</h3>
+        <p class="medium">Mixed media, LED light</p>
+        <p class="portfolio-meta">2022 · Individual work</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <span class="thumb-label">Paintings — add artwork photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Paintings</h3>
+        <p class="medium">Oil on canvas</p>
+        <p class="portfolio-meta">2021–2022 · 16×20 in</p>
+      </div>
+    </div>
+
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <span class="thumb-label">Drawing — add artwork photo</span>
+      </div>
+      <div class="portfolio-info">
+        <h3>Drawing</h3>
+        <p class="medium">Ink, pencil, mixed media</p>
+        <p class="portfolio-meta">2021–2022 · Various sizes</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <p class="section-label">Resume</p>
+  <div class="resume-layout">
+    <div>
+      <div class="resume-section">
+        <h3>Education</h3>
+        <div class="resume-item">
+          <h4>Architecture</h4>
+          <p class="org">Your University — update this</p>
+          <p class="year">2022</p>
+        </div>
+      </div>
+      <div class="resume-section">
+        <h3>Skills</h3>
+        <div class="resume-item">
+          <h4>Model-making</h4>
+          <p class="org">Clay, wood, PVC, paper, wire, LED</p>
+        </div>
+        <div class="resume-item">
+          <h4>Fine Art</h4>
+          <p class="org">Oil painting, ink drawing, illustration</p>
+        </div>
+        <div class="resume-item">
+          <h4>Design</h4>
+          <p class="org">Spatial composition, concept development</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="resume-section">
+        <h3>Selected works</h3>
+        <div class="resume-item">
+          <h4>Emotions</h4>
+          <p class="org">Three-part architectural model series</p>
+          <p class="year">05/2022</p>
+        </div>
+        <div class="resume-item">
+          <h4>Chinese Era</h4>
+          <p class="org">Tian Gan Di Zhi hexagonal labyrinth</p>
+          <p class="year">09/2022</p>
+        </div>
+        <div class="resume-item">
+          <h4>Tokyo-3: Transition Space</h4>
+          <p class="org">Large-scale architectural installation</p>
+          <p class="year">07/2021</p>
+        </div>
+        <div class="resume-item">
+          <h4>Life Orbit</h4>
+          <p class="org">27-unit interconnected staircase model</p>
+          <p class="year">04/2022</p>
+        </div>
+        <div class="resume-item">
+          <h4>Block</h4>
+          <p class="org">FSA archive–inspired structural study</p>
+          <p class="year">03/2022</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <p class="section-label">Writing & notes</p>
+  <div>
+    <div class="blog-item">
+      <div>
+        <p class="blog-title">On building emotion with material</p>
+        <p class="blog-excerpt">Why smoothness, roughness, and hollowness can say more than any color palette.</p>
+      </div>
+      <p class="blog-date">2022</p>
+    </div>
+    <div class="blog-item">
+      <div>
+        <p class="blog-title">What a brick taught me about scale</p>
+        <p class="blog-excerpt">Notes from Tokyo — on the way distance changes what we're allowed to see.</p>
+      </div>
+      <p class="blog-date">2021</p>
+    </div>
+    <div class="blog-item">
+      <div>
+        <p class="blog-title">Junk food, bubble tea, and the ideal house</p>
+        <p class="blog-excerpt">How collecting trash from a summer became an architectural statement.</p>
+      </div>
+      <p class="blog-date">2022</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="section-label">Contact</p>
+    <h2>Let's talk.</h2>
+    <p class="sub">Open to collaborations, commissions, and conversations about architecture and art.</p>
+    <div class="contact-links">
+      <a href="mailto:your@email.com" class="contact-link">
+        <div>
+          <p class="contact-link-label">Email</p>
+          <p>your@email.com</p>
+        </div>
+      </a>
+      <a href="https://instagram.com/yourhandle" target="_blank" class="contact-link">
+        <div>
+          <p class="contact-link-label">Instagram</p>
+          <p>@yourhandle</p>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/chingyudai" target="_blank" class="contact-link">
+        <div>
+          <p class="contact-link-label">LinkedIn</p>
+          <p>linkedin.com/in/chingyudai</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Ching Yu Dai</p>
+  <p>Architecture & Art</p>
+</footer>
+
+</body>
+</html>
